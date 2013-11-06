@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'open-uri'
-require 'hpricot'
+require 'nokogiri'
 
 
 @url = "http://www.amazon.com/Logitech-915-000194-Harmony-Control-Smartphone/dp/B00BQ5RYI4/ref=sr_1_1?ie=UTF8&qid=1383536405&sr=8-1&keywords=harmony"
@@ -23,8 +23,6 @@ begin
   
   puts @response
   
-  doc = Hpricot(@response)
-
 rescue Exception => e
   print e, "\n"
 end
