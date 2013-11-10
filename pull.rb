@@ -1,28 +1,21 @@
 require 'rubygems'
 require 'open-uri'
 require 'nokogiri'
+require "selenium-webdriver"
+require 'money'
+
+driver = Selenium::WebDriver.for :safari
 
 
-@url = "http://www.amazon.com/Logitech-915-000194-Harmony-Control-Smartphone/dp/B00BQ5RYI4/ref=sr_1_1?ie=UTF8&qid=1383536405&sr=8-1&keywords=harmony"
-@response = ''
+url = "http://www.amazon.com/Logitech-915-000194-Harmony-Control-Smartphone/dp/B00BQ5RYI4/ref=sr_1_1?ie=UTF8&qid=1383536405&sr=8-1&keywords=harmony"
 
 begin
+  driver.navigate.to url
+  price = driver.find_element(:id, 'priceblock_ourprice')
+  price_decimal= price.text.gsub(/[^\d.,'-]/, '')         # remove anything that's not a number, potential thousands_separator, or minus sign
+  price_decimal.chop! if price_decimal.match(/[\.|,]$/) #if the number ends with punctuation, just throw it out.
+  puts price_cents = price_decimal.gsub(".","").to_i
 
-  open(@url, "User-Agent" => "Ruby/#{RUBY_VERSION}",
-  "From" => "example@gmail.com",
-  "Referer" => "") { |f|
-    puts "Fetched document: #{f.base_uri}"
-    puts "\t Content Type: #{f.content_type}\n"
-    puts "\t Charset: #{f.charset}\n"
-    puts "\t Content-Encoding: #{f.content_encoding}\n"
-    puts "\t Last Modified: #{f.last_modified}\n\n"
-
-    # Save the response body
-    @response = f.read
-  }
-  
-  puts @response
-  
 rescue Exception => e
   print e, "\n"
 end

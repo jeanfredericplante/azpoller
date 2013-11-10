@@ -1,12 +1,28 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    childprocess (0.3.9)
+      ffi (~> 1.0, >= 1.0.11)
+    ffi (1.9.3)
+    i18n (0.6.5)
     mini_portile (0.5.2)
+    money (6.0.0)
+      i18n (~> 0.6.4)
+    multi_json (1.8.2)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    rubyzip (1.0.0)
+    selenium-webdriver (2.37.0)
+      childprocess (>= 0.2.5)
+      multi_json (~> 1.0)
+      rubyzip (~> 1.0.0)
+      websocket (~> 1.0.4)
+    websocket (1.0.7)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  nokogiri
+  money
+  nokogiri (~> 1.6.0)
+  selenium-webdriver (~> 2.37.0)
